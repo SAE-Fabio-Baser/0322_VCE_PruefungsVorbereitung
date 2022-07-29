@@ -1,0 +1,42 @@
+### Register User
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+  "username": "derJochen",
+  "password": "passwd",
+  "email": "f.baser@icloud.com"
+}
+
+### Login User
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "username": "derJochen",
+  "password": "12345"
+}
+
+### Get Posts with Token
+GET http://localhost:3000/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTkxMDQ1OTU1MDIsInVzZXJuYW1lIjoiZGVySm9jaGVuIn0.It5WtdmLB0LcNYF10CBpFGXpWj1PYZmeZbGoY2CJvj8
+
+### Reset Password
+POST http://localhost:3000/sendForgotEmail
+Content-Type: application/json
+
+{
+  "username": "derJochen"
+}
+
+### Check if Email Token is valid
+GET http://localhost:3000/forgot/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTkxMDgxNjUyOTAsInVzZXJuYW1lIjoiZGVySm9jaGVuIn0.P3xQ9-k3hu_xsn4muTjQKLtaRkq--J95m1mUbLrm7zU
+
+### Change Password
+POST http://localhost:3000/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTkxMDgxNjUyOTAsInVzZXJuYW1lIjoiZGVySm9jaGVuIn0.P3xQ9-k3hu_xsn4muTjQKLtaRkq--J95m1mUbLrm7zU
+Content-Type: application/json
+
+{
+  "newPassword": "12345"
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .hidden {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+  <h1>Reset password</h1>
+
+  <div id="passwordInputs" class="hidden">
+      <label for="password">Passwort:</label>
+      <input id="password" type="password" placeholder="12345">
+      <label for="repeatPassword">Passwort wiederholen:</label>
+      <input id="repeatPassword" type="password" placeholder="12345">
+
+      <button>Change Password</button>
+  </div>
+
+    <script>
+        const emailToken = new URLSearchParams(location.search).get("emailToken")
+        fetch("http://localhost:3000/forgot/verify/"+ emailToken)
+            .then(res => res.json())
+            .then(result => {
+                if (result.code === "validEmailToken") {
+                    const inputDiv = document.querySelector("#passwordInputs")
+
+                    inputDiv.classList.remove("hidden")
+                }
+            })
+            .catch(console.error)
+
+        const sendBtn = document.querySelector("button")
+        const password = document.querySelector("#password")
+        const repeatPassword = document.querySelector("#repeatPassword")
+
+        sendBtn.addEventListener("click", () => {
+            console.log(password.value, repeatPassword.value)
+
+            if (password.value === repeatPassword.value) {
+                fetch("http://localhost:3000/reset-password/"+ emailToken, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({ newPassword : password.value})
+                })
+            }
+
+        })
+    </script>
+</body>
+</html>
